@@ -94,5 +94,7 @@ public class BarChart extends View {
         canvas.drawLine(10, 0, 10, -mAxsiMaxX, mPaint);
         //y line
         canvas.drawLine(10,-mAxsiMaxX,mAxsiMaxY,-mAxsiMaxX,mPaint);
+
+        requestLayout();
     }
 }
