@@ -1,4 +1,4 @@
-package com.sensetime.qinhaihang_vendor.chartview;
+package com.sensetime.qinhaihang_vendor.chartview.bar;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,6 +8,8 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.sensetime.qinhaihang_vendor.chartview.R;
 
 /**
  * @author qinhaihang_vendor
@@ -29,9 +31,20 @@ public class BarChart extends View {
 
     private Paint mPaint;
 
-    private float mDefaultAxisW = 10f;
+    private float mDefaultAxisW = 1f;
     private float mAxsiMaxX = 100f;
+    private float mAxsiMinX = 0f;
+    private int mAxsiStepX = 1;
     private float mAxsiMaxY = 100f;
+    private float mAxsiMinY = 0f;
+    private int mAxsiStepY = 1;
+
+    private float mBaseX = 0f;
+    private float mBaseY = 0f;
+    private int mPaddingBottom;
+    private int mPaddingTop;
+    private int mPaddingLeft;
+    private int mPaddingRight;
 
     public BarChart(Context context) {
         super(context);
@@ -62,7 +75,7 @@ public class BarChart extends View {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
 
-        mPaint.setColor(Color.BLACK);
+        mPaint.setColor(Color.RED);
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setStrokeWidth(mDefaultAxisW);
     }
@@ -71,10 +84,8 @@ public class BarChart extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int withSize = MeasureSpec.getSize(widthMeasureSpec);
 
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
 
         if (getLayoutParams().width == ViewGroup.LayoutParams.WRAP_CONTENT
@@ -84,17 +95,53 @@ public class BarChart extends View {
             setMeasuredDimension(defaultWidth, heightSize);
         } else if (getLayoutParams().height == ViewGroup.LayoutParams.WRAP_CONTENT) {
             setMeasuredDimension(withSize, defaultHeight);
+        } else{
+            setMeasuredDimension(withSize, heightSize);
         }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //x line
-        canvas.drawLine(10, 0, 10, -mAxsiMaxX, mPaint);
-        //y line
-        canvas.drawLine(10,-mAxsiMaxX,mAxsiMaxY,-mAxsiMaxX,mPaint);
 
-        requestLayout();
+        getPaddingValue();
+
+        drawAxsi(canvas);
     }
+
+    private void getPaddingValue() {
+        mPaddingBottom = getPaddingBottom();
+        mPaddingTop = getPaddingTop();
+        mPaddingLeft = getPaddingLeft();
+        mPaddingRight = getPaddingRight();
+    }
+
+    public void setAxsiY(float axsiMaxY,float axsiMinY,int axsiStepY){
+        mAxsiMaxY = axsiMaxY;
+        mAxsiMinY = axsiMinY;
+        mAxsiStepY = axsiStepY;
+
+        invalidate();
+    }
+
+    private void drawAxsi(Canvas canvas){
+        int axsiYH = getHeight();
+        int axsiXW = getWidth();
+
+        //y axis
+        canvas.drawLine(mBaseX + mPaddingLeft,
+                mBaseY + mPaddingTop,
+                mBaseX + mPaddingLeft,
+                axsiYH - mPaddingBottom, mPaint);
+        int axsiYActualH = axsiYH - mPaddingBottom;
+
+
+        //x axis
+        canvas.drawLine(mBaseX + mPaddingLeft,
+                axsiYH - mPaddingBottom,
+                axsiXW - mPaddingRight,
+                axsiYH - mPaddingBottom, mPaint);
+
+    }
+
 }
