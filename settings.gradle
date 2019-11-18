@@ -1,1 +1,1 @@
-include ':app', ':chartview'
+include ':app', ':chartview', ':tablayout'

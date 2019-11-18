@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TabLayout">
+        <attr name="tab_text_selector_color" format="color"/>
+        <attr name="tab_text_unselector_color" format="color"/>
+        <attr name="tab_text_size" format="integer"/>
+        <attr name="tab_indicator_right_margin" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="MyIndicator">
+        <attr name="my_indicator_count" format="integer"/>
+        <attr name="my_indicator_margin_right" format="dimension"/>
+        <attr name="my_indicator_margin_left" format="dimension"/>
+        <attr name="my_indicator_image_unselect" format="integer"/>
+        <attr name="my_indicator_image_select" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="VerticalTextView">
+        <attr name="vt_top_text" format="string"/>
+        <attr name="vt_bottom_text" format="string"/>
+        <attr name="vt_space" format="dimension"/>
+        <attr name="vt_top_text_color" format="color"/>
+        <attr name="vt_bottom_text_color" format="color"/>
+        <attr name="vt_top_text_size" format="dimension"/>
+        <attr name="vt_bottom_text_size" format="dimension"/>
+    </declare-styleable>
+</resources>
